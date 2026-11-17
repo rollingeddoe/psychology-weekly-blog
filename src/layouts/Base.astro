@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+import { href } from '../lib/posts';
+interface Props { title?: string; description?: string; active?: string; noindex?: boolean }
+const { title, description = 'A weekly reading of psychology research. Clear explanations, thoughtful context, and links to the original studies.', active = '', noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ? `${title} — Psychology Weekly` : 'Psychology Weekly — Research, in perspective'}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title ?? 'Psychology Weekly'} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#f8f7f3" />
+    <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title="Psychology Weekly" href={href('rss.xml')} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href={href()} aria-label="Psychology Weekly home"><span class="brand-mark" aria-hidden="true">pw<span>.</span></span><span>Psychology<br />Weekly</span></a>
+      <nav aria-label="Main navigation">
+        <a href={href('archive/')} aria-current={active === 'archive' ? 'page' : undefined}>Archive</a>
+        <a href={href('about/')} aria-current={active === 'about' ? 'page' : undefined}>About</a>
+        <a class="feed-link" href={href('subscribe/')}>Follow <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer wrap">
+      <div><a class="footer-name" href={href()}>Psychology Weekly</a><p>A closer look at the human mind.</p></div>
+      <div class="footer-right"><a href={href('subscribe/')}>RSS feed ↗</a><span>© {new Date().getUTCFullYear()} Psychology Weekly</span></div>
+    </footer>
+  </body>
+</html>

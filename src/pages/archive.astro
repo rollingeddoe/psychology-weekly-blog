@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PostRow from '../components/PostRow.astro';
+import { publishedPosts } from '../lib/posts';
+const posts = await publishedPosts();
+const categories = [...new Set(posts.map(p => p.data.category))];
+---
+<Base title="Archive" active="archive">
+  <section class="page-heading wrap"><span class="eyebrow">The reading room</span><h1>The archive<span class="accent">.</span></h1><p>Weekly digests, research notes, and a few thoughts along the way.</p></section>
+  <section class="wrap archive-content" aria-label="Browse articles">
+    <div class="archive-tools"><div class="filters" role="group" aria-label="Filter by article type"><button type="button" data-filter="all" aria-pressed="true">All writing</button>{categories.map(c => <button type="button" data-filter={c} aria-pressed="false">{c}</button>)}</div><label class="search-label"><span class="sr-only">Search articles</span><input type="search" id="search" placeholder="Search the archive…" /></label></div>
+    <p class="results-count" role="status" aria-live="polite">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</p>
+    <div id="post-list">{posts.map(post => <PostRow post={post} />)}</div>
+    <p id="no-results" class="empty-state" hidden>No articles match this search. Try another word or choose “All writing”.</p>
+  </section>
+</Base>
+<script>
+  const search = document.querySelector<HTMLInputElement>('#search')!;
+  const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('.post-row'));
+  let category = 'all';
+  function filter() {
+    const query = search.value.trim().toLowerCase();
+    let count = 0;
+    rows.forEach(row => {
+      const matches = (category === 'all' || row.dataset.category === category) && (row.dataset.search ?? '').includes(query);
+      row.hidden = !matches;
+      if (matches) count++;
+    });
+    document.querySelector('.results-count')!.textContent = `${count} ${count === 1 ? 'article' : 'articles'}`;
+    (document.querySelector('#no-results') as HTMLElement).hidden = count > 0;
+  }
+  search.addEventListener('input', filter);
+  buttons.forEach(button => button.addEventListener('click', () => {
+    category = button.dataset.filter!;
+    buttons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+    filter();
+  }));
+</script>

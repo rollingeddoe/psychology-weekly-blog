@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PostRow from '../components/PostRow.astro';
+import { publishedPosts, href } from '../lib/posts';
+const posts = await publishedPosts();
+---
+<Base>
+  <section class="hero wrap">
+    <div class="hero-top"><span class="eyebrow"><span class="status-dot"></span> An independent research digest</span><span class="edition">The English edition</span></div>
+    <h1>Psychology,<br /><em>in perspective.</em></h1>
+    <div class="hero-bottom"><p>How we think, feel, and relate.<br />A weekly reading of research on the human mind, with room for the details that matter.</p><a class="text-link" href={href('archive/')}>Explore the writing <span aria-hidden="true">↓</span></a></div>
+  </section>
+  <section class="latest wrap" aria-labelledby="latest-heading">
+    <div class="section-heading"><h2 id="latest-heading">Latest writing</h2><a href={href('archive/')}>View archive <span aria-hidden="true">↗</span></a></div>
+    {posts.slice(0, 4).map(post => <PostRow post={post} />)}
+    {posts.length === 0 && <p class="empty-state">The first English edition is on its way. Follow the feed to read it when it arrives.</p>}
+  </section>
+  <section class="editorial-note wrap">
+    <span class="eyebrow">A note on the approach</span>
+    <div><h2>Interesting findings.<br /><em>Careful explanations.</em></h2><p>Each digest starts with the original research: the question, the people studied, the findings, and the limits. Sources stay close to the story, so you can read further.</p><a class="text-link" href={href('about/')}>About this project <span aria-hidden="true">↗</span></a></div>
+  </section>
+</Base>

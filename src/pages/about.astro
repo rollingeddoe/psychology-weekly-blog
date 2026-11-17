@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/posts';
+---
+<Base title="About" active="about">
+  <section class="page-heading wrap"><span class="eyebrow">Behind the digest</span><h1>A little more<br /><em>context.</em></h1></section>
+  <div class="reading-layout wrap"><aside class="margin-note">Psychology Weekly<br />The English edition</aside><article class="prose">
+    <p class="lead">Psychology Weekly is an independent editorial project about how people think, feel, develop, and connect.</p>
+    <p>The English edition brings together selected psychology research in clear, readable language. It is a companion to a Chinese-language weekly digest, with its own space for articles and references.</p>
+    <h2>What you’ll find here</h2><p>Weekly digests introduce a selection of papers, one study at a time. Research notes make room for a closer look at a particular question. Topics may range from relationships and learning to mental health and everyday decisions.</p>
+    <h2>How the research is presented</h2><p>Every summary aims to explain who was studied, what the researchers did, and what they found. Limits and uncertainty belong in that explanation. An association is described as an association; a finding from one sample is kept in its context.</p>
+    <p>References point back to the original papers. Publication dates distinguish online release from a later journal issue. Where a summary relies on an abstract, that basis is made clear.</p>
+    <h2>Read along</h2><p>The English research archive is just beginning. You can browse the <a href={href('archive/')}>latest writing</a> or <a href={href('subscribe/')}>follow the RSS feed</a> for new posts.</p>
+  </article></div>
+</Base>
