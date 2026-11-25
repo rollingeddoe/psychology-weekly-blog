@@ -1,0 +1,83 @@
+media:
+  input: public/images
+  output: /psychology-weekly-blog/images
+  extensions: [jpg, jpeg, png, webp, avif, gif]
+  rename: safe
+
+content:
+  - name: site
+    label: Site settings
+    type: file
+    path: src/data/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: title
+        label: Site title
+        type: string
+        required: true
+      - name: description
+        label: Homepage introduction
+        type: text
+        required: true
+
+  - name: posts
+    label: Articles
+    type: collection
+    path: src/content/posts
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      fields: [title, date, category, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Article title
+        type: string
+        required: true
+      - name: description
+        label: Short introduction
+        type: text
+        required: true
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: category
+        label: Category
+        type: select
+        required: true
+        default: Weekly digest
+        options:
+          values: [Weekly digest, Research note, Editorial]
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: issue
+        label: Issue number
+        type: number
+        description: Optional. Use a positive whole number for a numbered edition.
+        options:
+          min: 1
+          step: 1
+      - name: draft
+        label: Hide from website
+        type: boolean
+        default: true
+        description: Saving writes to the public GitHub repository. Add approved English copy here. Switch this off when the article is ready to appear on the website.
+      - name: body
+        label: Article body
+        type: rich-text
+        required: true
+        options:
+          format: markdown

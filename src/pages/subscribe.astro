@@ -3,9 +3,14 @@ import Base from '../layouts/Base.astro';
 import { href } from '../lib/posts';
 const feed = new URL(href('rss.xml'), Astro.site).href;
 ---
-<Base title="Follow the writing">
-  <section class="page-heading wrap"><span class="eyebrow">Keep in touch with the research</span><h1>Read at<br /><em>your own pace.</em></h1></section>
-  <div class="reading-layout wrap"><aside class="margin-note">New writing,<br />in your feed reader.</aside><article class="prose"><p class="lead">Follow Psychology Weekly through RSS to receive new posts in your preferred reader.</p><p>Copy the address below and add it as a new feed. No account on this website is needed.</p><div class="feed-box"><code id="feed-url">{feed}</code><button id="copy-feed" type="button">Copy feed URL</button></div><p id="copy-status" class="small" role="status" aria-live="polite"></p><p><a href={href('rss.xml')}>Open the RSS feed ↗</a></p><p class="small">This site currently offers RSS rather than an email newsletter.</p></article></div>
+<Base title="Follow by RSS" active="subscribe">
+  <section class="page-heading narrow"><h1>Follow by RSS</h1></section>
+  <article class="prose narrow stand-alone">
+    <p>To receive each new article, add this address to your feed reader.</p>
+    <div class="feed-box"><code id="feed-url">{feed}</code><button id="copy-feed" type="button">Copy feed URL</button></div>
+    <p id="copy-status" class="small" role="status" aria-live="polite"></p>
+    <p><a href={href('rss.xml')}>Open the feed</a></p>
+  </article>
 </Base>
 <script>
   document.querySelector('#copy-feed')!.addEventListener('click', async () => {

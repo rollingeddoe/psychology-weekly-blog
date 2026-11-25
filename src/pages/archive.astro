@@ -6,7 +6,7 @@ const posts = await publishedPosts();
 const categories = [...new Set(posts.map(p => p.data.category))];
 ---
 <Base title="Archive" active="archive">
-  <section class="page-heading wrap"><span class="eyebrow">The reading room</span><h1>The archive<span class="accent">.</span></h1><p>Weekly digests, research notes, and a few thoughts along the way.</p></section>
+  <section class="page-heading wrap"><h1>Archive</h1></section>
   <section class="wrap archive-content" aria-label="Browse articles">
     <div class="archive-tools"><div class="filters" role="group" aria-label="Filter by article type"><button type="button" data-filter="all" aria-pressed="true">All writing</button>{categories.map(c => <button type="button" data-filter={c} aria-pressed="false">{c}</button>)}</div><label class="search-label"><span class="sr-only">Search articles</span><input type="search" id="search" placeholder="Search the archive…" /></label></div>
     <p class="results-count" role="status" aria-live="polite">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</p>

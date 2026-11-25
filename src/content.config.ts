@@ -10,7 +10,10 @@ const posts = defineCollection({
     category: z.enum(['Weekly digest', 'Research note', 'Editorial']),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(true),
-    issue: z.number().int().positive().optional(),
+    issue: z.preprocess(
+      (value) => value === '' || value === null ? undefined : value,
+      z.number().int().positive().optional(),
+    ),
   }),
 });
 export const collections = { posts };

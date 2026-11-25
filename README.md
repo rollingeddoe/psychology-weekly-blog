@@ -4,6 +4,15 @@ A minimal, responsive Astro blog hosted on GitHub Pages.
 
 Website: https://rollingeddoe.github.io/psychology-weekly-blog/
 
+## 用浏览器编辑
+
+1. 打开 [Pages CMS](https://app.pagescms.org/)，用 GitHub 登录。首次连接时安装 Pages CMS 的 GitHub App，在 **Only select repositories** 中选择 `rollingeddoe/psychology-weekly-blog`。进入该仓库的 `main` 分支。
+2. 打开 **Site settings**，在 **Site title** 和 **Homepage introduction** 中修改英文站名和首页简介。
+3. 打开 **Articles**，点选一篇文章或新建一篇。正文可以直接设置小标题、斜体、链接和插图。**Article title** 是文章标题，**Short introduction** 是文章简介。新建时可修改文件名，文件名决定文章网址。
+4. 保存会直接更新公开仓库。英文稿先在私有编辑区校对，通过后再放进后台。新文章默认开启 **Hide from website**，关掉并保存后，已到发布日期的文章会随下一次 GitHub Pages 部署上线。已上线文章和站点设置的修改也会在保存后重新部署。
+
+编辑器显示正文格式。要检查整页效果和手机端排版，可在本地预览。操作说明见 [Pages CMS 官方入门](https://pagescms.org/docs/quick-start/)。
+
 ## 本地使用
 
 使用 Node.js 24：
